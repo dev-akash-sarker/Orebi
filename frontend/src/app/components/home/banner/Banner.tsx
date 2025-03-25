@@ -100,11 +100,14 @@ export default function Banner() {
 
   return (
     <div className="bg-[#F5F7F9]">
-      <Slider className="sliderbanner" {...settings}>
+      <Slider
+        className="sliderbanner w-full sm:container mx-auto"
+        {...settings}
+      >
         {["bannerone.png", "bannertwo.png", "bannerone.png"].map(
           (banner, index) => (
             <Link className=" w-full" href="#" key={index}>
-              <div className="w-full h-[597px] bg-[#F5F7F9]">
+              <div className="w-full h-[200px] sm:w-full sm:h-[400px] lg:w-[1599px] lg:h-[597px] bg-[#F5F7F9] mx-auto">
                 <Image
                   src={`/banner/${banner}`}
                   fill

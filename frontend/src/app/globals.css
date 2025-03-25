@@ -24,6 +24,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-dmsans: var(--font-dm-sans), sans-serif;
 }
 
 @media (prefers-color-scheme: white) {
@@ -36,7 +37,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-dmsans);
 }
 .sliderbanner .slick-slide > div {
   padding-right: 0px !important;
