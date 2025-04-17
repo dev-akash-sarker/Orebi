@@ -24,7 +24,7 @@ export default function Information() {
           </p>
         </div>
       </div>
-      sss
+  
     </div>
   );
 }
