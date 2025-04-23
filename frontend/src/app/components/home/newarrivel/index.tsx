@@ -1,52 +1,90 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import Slider, { Settings } from "react-slick";
 import { FaCartShopping, FaCodeCompare, FaHeart } from "react-icons/fa6";
+import ProductCard from "../product";
 
-export default function Newarrivel() {
+const Newarrivel: React.FC = () => {
+  const isNewArrival = (date: string): boolean => {
+    const today = new Date();
+    const addedDate = new Date(date);
+    const diffTime = today.getTime() - addedDate.getTime();
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    return diffDays <= 15;
+  };
+  type Product = {
+    title: string;
+    price: string;
+    url: string;
+    date: string;
+  };
+
+  const products: Product[] = [
+    {
+      title: "Basic Crew Neck Teesss",
+      price: "44",
+      url: "/newarrivel/p1.png",
+      date: "2025-04-28",
+    },
+    {
+      title: "Classic Polo Shirt",
+      price: "52",
+      url: "/newarrivel/p1.png",
+      date: "2025-04-25",
+    },
+    {
+      title: "Slim Fit Jeans",
+      price: "60",
+      url: "/newarrivel/p1.png",
+      date: "2025-04-22",
+    },
+  ];
+
+  const settings: Settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 640,
+        settings: { slidesToShow: 1 },
+      },
+    ],
+  };
+
   return (
-    <>
-      <div className="container mx-auto">
-        <div className="px-0 lg:px-40  pt-[30px] pb-[29px]">
-          <h3 className=" font-bold text-[39px] text-text-bold mb-12">
-            New arrivel
-          </h3>
-          <div>
-            <div className=" w-[370] h-[465] bg-white">
-              <Image
-                src={"/newarrivel/p1.png"}
-                width={370}
-                height={370}
-                alt="abc"
+    <div className="container mx-auto">
+      <div className="px-4 lg:px-40 pt-[30px] pb-[29px]">
+        <h3 className="font-bold text-[39px] text-text-bold mb-12">
+          New Arrivals
+        </h3>
+
+        <Slider {...settings}>
+          {products
+            .filter((product) => isNewArrival(product.date))
+            .map((product, index) => (
+              <ProductCard
+                key={index}
+                title={product.title}
+                price={product.price}
+                url={product.url}
               />
-              <div className=" relative">
-                <div className="flex justify-between items-center mt-6 relative group">
-                  <p className=" text-[20px] font-bold">Basic Crew Neck Tee</p>
-                  <p className=" font-normal text-base leading-[30px] text-nonactive">
-                    $44.00
-                  </p>
-                  <div className=" absolute -top-[152px] left-0 w-full opacity-0 group-hover:opacity-100 bg-white h-[152px] transition-all duration-300 ease-in-out">
-                    <nav className="py-6 pr-7">
-                      <ul className=" font-normal text-base flex flex-col text-right text-nonactive cursor-pointer gap-5">
-                        <li className=" flex justify-end items-center gap-5 hover:font-bold hover:text-text-bold">
-                          Add to Wish List <FaHeart color="black" />
-                        </li>
-                        <li className=" flex justify-end items-center gap-5 hover:font-bold hover:text-text-bold">
-                          Compare <FaCodeCompare color="black" />
-                        </li>
-                        <li className=" flex justify-end items-center gap-5 hover:font-bold hover:text-text-bold">
-                          Add to Cart <FaCartShopping color="black" />
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-                <p className=" font-normal text-nonactive text-base">Black</p>
-              </div>
-            </div>
-          </div>
-        </div>
+            ))}
+        </Slider>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default Newarrivel;
